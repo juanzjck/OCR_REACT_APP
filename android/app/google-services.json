@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "187605500535",
+    "firebase_url": "https://yapa-1e244.firebaseio.com",
+    "project_id": "yapa-1e244",
+    "storage_bucket": "yapa-1e244.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:187605500535:android:341c6e94c6610dbe8f7c72",
+        "android_client_info": {
+          "package_name": "com.yapapana"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "187605500535-r3gleth3ict34akjfn2lisinsmc4tmcn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxvBmGy3HjM-ZvqgHY8kQ8JYef5kOlX4w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "187605500535-r3gleth3ict34akjfn2lisinsmc4tmcn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

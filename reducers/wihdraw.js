@@ -1,0 +1,51 @@
+function wihdraw(state = { data: {}, account_type: ['Ahorros', 'Corriente'], list_banks }, action) {
+    switch(action.type){
+        case 'SET_WIHDRAW_INFORMATION': {
+            return { ...state,  data: action.payload }
+        }
+        default: {
+            return { ...state }
+        }           
+    }
+}
+
+const list_banks=[
+    'ACCIONES VALORES CASA DE VALORES S.A.ACCIVAL',
+    'ACTIVA ASES.E INTERMED.VALORES ACTIVALORES CASA DE',
+    'ALBION CASA DE VALORES S.A.',
+    'ANALYTICA SECURTIES C.A.CASA DE VALORES',
+    'BANCO AMAZONAS',
+    'BANCO BOLIVARIANO',
+    'BANCO CAPITAL',
+    'BANCO CENTRAL DEL ECUADOR / DINERO ELECTRONICO',
+    'BANCO CITIBANK',
+    'BANCO COOPNACIONAL SA',
+    'BANCO D MIRO SA',
+    'BANCO DE GUAYAQUIL S.A',
+    'BANCO DE LOJA',
+    'BANCO DEL AUSTRO',
+    'BANCO DEL INSTITU ECUATORIANO DE SEGURIDAD SOCIAL',
+    'BANCO DEL LITORAL S.A.',
+    'BANCO DEL PACIFICO',
+    'BANCO DELBANK S.A.',
+    'BANCO DESARROLLO DE LOS PUEBLOS S.A.',
+    'BANCO DINERS CLUB',
+    'BANCO ECUATORIANO DE LA VIVIENDA',
+    'BANCO GENERAL RUMINAHUI S.A.',
+    'BANCO INTERNACIONAL',
+    'BANCO MACHALA',
+    'BANCO PARA LA ASISTENCIA COMUNITARIA FINCA S.A.',
+    'BANCO PROCREDIT S.A.',
+    'BANCO PRODUBANCO',
+    "BANCO SOLIDARIO",
+    'BANCO PICHINCHA',
+    'BANCO VISIONFUND ECUADOR S.A.',
+    'BANECUADOR B.P.',
+    'C DE A Y C EMPLEAD BANCAR DEL ORO LTDA',
+    'C.DE A Y C EDUCAD.DE ZAMORA CHINCHIPE',
+    'C.DE A Y C.EDUCADORES DE EL ORO LTD',
+    'C.DE A Y C.SAN MIGUEL DE PALLATANGA',
+    'C.DE A.Y C COOPAC AUSTRO LTDA(MIESS)',
+];
+   
+export default wihdraw;

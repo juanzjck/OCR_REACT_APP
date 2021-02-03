@@ -1,10 +1,14 @@
 import React, {useState} from 'react';
-import {Button, StyleSheet, Text, View, Image} from 'react-native';
+import {Button, StyleSheet, Text, View, Image, FlatList} from 'react-native';
 import ImagePicker from 'react-native-image-crop-picker';
 import TesseractOcr, {
   LANG_ENGLISH,
   useEventListener,
 } from 'react-native-tesseract-ocr';
+import Modal from 'react-native-modal';
+import axios from 'axios';
+//AIzaSyDfAIHOEHQ0XMVjsYQePcQxrLvxS1bvAEk
+//https://www.googleapis.com/customsearch/v1?cx=010987047032419380671%3Azu3fnejdxjy&key=AIzaSyCVm0yQPFxy4UK4gzhlC52EWj_PiHTW1RU&q=
 
 const DEFAULT_HEIGHT = 500;
 const DEFAULT_WITH = 600;
@@ -16,7 +20,10 @@ const defaultPickerOptions = {
 
 function App() {
   const [isLoading, setIsLoading] = useState(false);
+  const [openModal, setopenModal] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [DATA, setDATA] = useState({data:undefined});
+  
   const [imgSrc, setImgSrc] = useState(null);
   const [text, setText] = useState('');
   useEventListener('onProgressChange', (p) => {
@@ -67,8 +74,62 @@ function App() {
     }
   };
 
+  const searchGoogle=(text)=>{
+    var sin_salto = text.split("\n").join("");
+    const texts=sin_salto.split(' ');
+    let textToSearch='';
+    let i=0;
+    texts.map((txt)=>{
+      if(i=0)textToSearch+=`${txt}`;
+      else textToSearch+=`+${txt}`;
+      i++;
+    })
+    console.log(textToSearch)
+    axios.get(
+      'https://www.googleapis.com/customsearch/v1?cx=010987047032419380671%3Azu3fnejdxjy&key=AIzaSyCVm0yQPFxy4UK4gzhlC52EWj_PiHTW1RU&q=' +
+        `${textToSearch}` +
+        '&start=1'
+    )
+    .then(response =>{
+      setDATA({ data: response.data.items })
+      console.log( response.data.items)
+      setopenModal(true);
+    }
+    );
+    
+
+  }
+  const Item = (item) =>{ 
+    console.log(item)
+    return(
+    
+    <View style={styles.item}>
+       <Text style={styles.title}>Resultado</Text>
+      <Text style={styles.title}>{item.item.title}</Text>
+      <Text style={styles.title}>{item.item.displayLink}</Text>
+    </View>
+  );}
+  
   return (
     <View style={styles.container}>
+       <Modal isVisible={openModal}>
+        <View  style={styles.containerBackGround}>
+        <Button
+            disabled={isLoading}
+            title="SALIR"
+            onPress={() => {
+              setopenModal(false);
+            }}
+          />
+          <Text>Resultados</Text>
+            <FlatList
+            data={DATA.data}
+            renderItem={Item}
+            keyExtractor={item => item.id}
+          />
+          
+        </View>
+      </Modal>
       <Text style={styles.title}>Guillermo Torres</Text>
       <Text style={styles.instructions}>Toma una foto:</Text>
       <View style={styles.options}>
@@ -97,7 +158,17 @@ function App() {
           {isLoading ? (
             <Text>Cargando...</Text>
           ) : (
-            <Text>{text}</Text>
+            <>
+                 <Text>{text}</Text>
+                <Button
+                disabled={isLoading}
+                title="Buscar en google"
+                onPress={() => {
+                  searchGoogle(text);
+                }}
+              />
+            </>
+       
           )}
         </View>
       )}
@@ -139,6 +210,21 @@ const styles = StyleSheet.create({
     color: '#333333',
     marginBottom: 5,
   },
+  item: {
+    backgroundColor: '#f9c2ff',
+    padding: 20,
+    marginVertical: 8,
+    marginHorizontal: 16,
+  },
+  containerBackGround:{
+    backgroundColor:'white',
+    height:'100%',
+    width:'100%'
+  },
+  title:{
+    color:'white',
+    fontSize:10
+  }
 });
 
 export default App;
